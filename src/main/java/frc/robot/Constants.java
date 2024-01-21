@@ -41,7 +41,7 @@ public static class Arm{
 
     public static final int IntakeMotorID = 44;
  
-  public static final Double FWDSpeed = 1.0; //Shooter Wheel Speed
+  public static final Double FWDSpeed = 1.0; 
   public static final Double REVSpeed = -1.0;
 
   }
@@ -51,8 +51,8 @@ public static class Shooter{
   public static final int LeftShooterID = 40;
   public static final int RightShooterID = 46;
   public static final Double SameSpeed = .75; //Shooter Wheel Speed
-  public static final Double TopSpeed = 0.6;
-  public static final Double BottomSpeed = 0.4;
+  public static final Double TopSpeed = 0.6; //Not used
+  public static final Double BottomSpeed = 0.4;//Not used
 }
 
   public static class OperatorConstants {
