@@ -34,6 +34,8 @@ public static class Arm{
   public static final double ArmUpSpeed = .25;
   public static final double ArmDownSpeed = -.25;
 
+  public static final double MAX_CURRENT_DRAW = 0;
+
 }
 
 
@@ -50,7 +52,10 @@ public static class Shooter{
 
   public static final int LeftShooterID = 40;
   public static final int RightShooterID = 46;
-  public static final Double SameSpeed = .75; //Shooter Wheel Speed
+
+  public static final Double SlowSpeed = .375;
+  public static final Double FastSpeed = .75;
+  public static final Double SameSpeed = .75; //Not Used
   public static final Double TopSpeed = 0.6; //Not used
   public static final Double BottomSpeed = 0.4;//Not used
 }

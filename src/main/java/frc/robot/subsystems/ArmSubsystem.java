@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -15,43 +16,66 @@ import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private final TalonFX LeftPivot;
-  private final TalonFX RightPivot;
+  private final TalonFX PivotMotor;
+  
   private final DutyCycleEncoder HexEncoder;
+
+  private final double MaxCurrent;
   
 
 
   /** Creates a new ArmSubsystem. */
   public ArmSubsystem() {
 
-    LeftPivot = new TalonFX(Constants.Arm.LeftPivotID);
-    LeftPivot.setInverted(false);
-    RightPivot = new TalonFX(Constants.Arm.RightPivotID);
-    RightPivot.setInverted(false);
+    PivotMotor = new TalonFX(Constants.Arm.LeftPivotID);
+    PivotMotor.setInverted(false);
+   
     HexEncoder = new DutyCycleEncoder(Constants.Arm.EncoderPWMID);
+    MaxCurrent = Constants.Arm.MAX_CURRENT_DRAW;
 
+    ConfigPivotCurrent();
 
+  }
+
+  public void ConfigPivotCurrent(){
+
+    if (MaxCurrent >= 5){
+      PivotMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true,Constants.Arm.MAX_CURRENT_DRAW,Constants.Arm.MAX_CURRENT_DRAW + 5, 0.5));
+      }
+      else{
+        PivotMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(false,40,10,1));
+      
+      }
 
   }
 
   public void setspeed(Double speed){
-LeftPivot.set(ControlMode.PercentOutput, speed);
-RightPivot.set(ControlMode.PercentOutput, speed);
+PivotMotor.set(ControlMode.PercentOutput, speed);
+
 
   }
 
   public void stop(){
-    LeftPivot.set(ControlMode.PercentOutput, 0);
-    RightPivot.set(ControlMode.PercentOutput, 0);
+    PivotMotor.set(ControlMode.PercentOutput, 0);
+  
     
       }
+
+      public double getPivotEncoder(){
+
+       return PivotMotor.getSelectedSensorPosition();
+
+      } 
 
 
 
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Encoder Value", HexEncoder.getAbsolutePosition()*360);
+    SmartDashboard.putNumber("Hex Encoder Value", HexEncoder.getAbsolutePosition()*360);
+    SmartDashboard.putNumber("Pivot Motor Encoder", getPivotEncoder());
+    SmartDashboard.putNumber("Pivot Motor Current",PivotMotor.getStatorCurrent());
+
     // This method will be called once per scheduler run
   }
 }

@@ -10,10 +10,12 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootSpeedSame extends CommandBase {
 private final ShooterSubsystem m_ShooterSubsystem;
+private Double Speed;
 
   /** Creates a new ShootSpeedSame. */
-  public ShootSpeedSame(ShooterSubsystem m_ShooterSubsystem) {
+  public ShootSpeedSame(ShooterSubsystem m_ShooterSubsystem,Double Speed) {
     this.m_ShooterSubsystem = m_ShooterSubsystem;
+    this.Speed = Speed;
     addRequirements(m_ShooterSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,7 +28,7 @@ private final ShooterSubsystem m_ShooterSubsystem;
   @Override
   public void execute() {
 
-m_ShooterSubsystem.setspeed(Constants.Shooter.SameSpeed);
+m_ShooterSubsystem.setspeed(Speed);
 
   }
 
