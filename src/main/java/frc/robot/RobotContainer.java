@@ -10,6 +10,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ArmPivot.ArmDown;
 import frc.robot.commands.ArmPivot.ArmUP;
+import frc.robot.commands.ArmPivot.PIDPivotCommand;
 import frc.robot.commands.Intake.IntakeFWD;
 import frc.robot.commands.Intake.IntakeREV;
 import frc.robot.commands.Shooter.ShootSpeedSame;
@@ -18,6 +19,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.Swerve;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -57,7 +59,7 @@ public class RobotContainer {
       )
   );
  
-   
+   m_ArmSubsystem.setDefaultCommand(new PIDPivotCommand(m_ArmSubsystem,0,true));
     // Configure the trigger bindings
     configureBindings();
   }
@@ -80,13 +82,15 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    m_driverController.rightBumper().whileTrue(new ShootSpeedSame(m_ShooterSubsystem));
 
-    m_driverController.a().whileTrue(new ArmDown(m_ArmSubsystem));
-    m_driverController.b().whileTrue(new ArmUP(m_ArmSubsystem));
+    m_driverController.leftBumper().whileTrue(new ShootSpeedSame(m_ShooterSubsystem,Constants.Shooter.FastSpeed));
+m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, .05).whileTrue(new ShootSpeedSame(m_ShooterSubsystem,Constants.Shooter.SlowSpeed));
 
-    m_driverController.y().whileTrue(new IntakeFWD(m_IntakeSubsystem));
-    m_driverController.x().whileTrue(new IntakeREV(m_IntakeSubsystem));
+    m_driverController.button(10).whileTrue(new ArmDown(m_ArmSubsystem)); /////////////////////// UPDATE to CORRECT BUTTONS????????????????????????????????????????
+    m_driverController.button(11).whileTrue(new ArmUP(m_ArmSubsystem)); /////////////////////// UPDATE to CORRECT BUTTONS????????????????????????????????????????
+
+    m_driverController.rightBumper().whileTrue(new IntakeFWD(m_IntakeSubsystem));
+    m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, .05).whileTrue(new IntakeREV(m_IntakeSubsystem));
 
 
 

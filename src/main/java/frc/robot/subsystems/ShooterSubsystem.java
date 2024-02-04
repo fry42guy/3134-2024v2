@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -53,10 +54,27 @@ public void setDiffSpeed(Double leftspeed, double rightspeed){
 
 }
 
+public double GetRightShooterRPM(){
+
+
+  return (RightShooter.getSelectedSensorVelocity() / 2048) * 10 * 60;
+
+}
+
+public double GetLeftShooterRPM(){
+
+
+  return (LeftShooter.getSelectedSensorVelocity() / 2048) * 10 * 60;
+
+}
 
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("Left Shooter Motor RPM", GetLeftShooterRPM());
+    SmartDashboard.putNumber("Right Shooter Motor RPM ", GetRightShooterRPM());
+
 
     // This method will be called once per scheduler run
   }
