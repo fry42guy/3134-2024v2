@@ -13,6 +13,7 @@ import frc.robot.commands.ArmPivot.ArmUP;
 import frc.robot.commands.ArmPivot.PIDPivotCommand;
 import frc.robot.commands.Intake.IntakeFWD;
 import frc.robot.commands.Intake.IntakeREV;
+import frc.robot.commands.Shooter.PIDShooterCommand;
 import frc.robot.commands.Shooter.ShootSpeedSame;
 import frc.robot.subsystems.ArmSubsystem;
 
@@ -20,6 +21,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -43,6 +45,9 @@ public class RobotContainer {
   private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
     
   public static Swerve s_Swerve = new Swerve();
+
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -92,7 +97,7 @@ m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, .05).
     m_driverController.rightBumper().whileTrue(new IntakeFWD(m_IntakeSubsystem));
     m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, .05).whileTrue(new IntakeREV(m_IntakeSubsystem));
 
-
+m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem, 2500));
 
 
 
