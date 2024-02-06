@@ -31,10 +31,10 @@ public static class Arm{
   public static final int LeftPivotID = 49;
   public static final int RightPivotID = 47;
   public static final int EncoderPWMID = 9;
-  public static final double ArmUpSpeed = .25;
-  public static final double ArmDownSpeed = -.25;
+  public static final double ArmUpSpeed = .50;
+  public static final double ArmDownSpeed = -.50;
 
-  public static final double MAX_CURRENT_DRAW = 0;
+  public static final double MAX_CURRENT_DRAW = 25;
 
 }
 

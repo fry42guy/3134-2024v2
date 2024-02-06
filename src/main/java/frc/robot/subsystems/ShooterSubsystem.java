@@ -20,12 +20,12 @@ private final TalonFX RightShooter;
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
     LeftShooter = new TalonFX(Constants.Shooter.LeftShooterID);
-    LeftShooter.setInverted(true);
+    LeftShooter.setInverted(false);
     LeftShooter.setSelectedSensorPosition(0);
     LeftShooter.setStatusFramePeriod(StatusFrame.Status_2_Feedback0,25);
 
     RightShooter = new TalonFX(Constants.Shooter.RightShooterID);
-    RightShooter.setInverted(true);
+    RightShooter.setInverted(false);
     RightShooter.setSelectedSensorPosition(0);
     RightShooter.setStatusFramePeriod(StatusFrame.Status_2_Feedback0,25);
     
