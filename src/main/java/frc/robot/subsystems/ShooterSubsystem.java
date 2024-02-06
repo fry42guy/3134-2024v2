@@ -17,6 +17,11 @@ public class ShooterSubsystem extends SubsystemBase {
 private final TalonFX LeftShooter;
 private final TalonFX RightShooter;
 
+public double KP;
+public double KI;
+public double KD;
+public double PIDTESTspeed;
+
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
     LeftShooter = new TalonFX(Constants.Shooter.LeftShooterID);
@@ -68,7 +73,52 @@ public double GetLeftShooterRPM(){
 
 }
 
+public void PIDSetup(){
 
+if (SmartDashboard.containsKey("LeftShooter(PID) KP")==false){
+SmartDashboard.putNumber("LeftShooter(PID) KP", 0.0004);
+}
+
+if (SmartDashboard.containsKey("LeftShooter(PID) KI") ==false){
+  SmartDashboard.putNumber("LeftShooter(PID) KI", 0.0);
+  }
+
+  if (SmartDashboard.containsKey("LeftShooter(PID) KD")==false){
+    SmartDashboard.putNumber("LeftShooter(PID) KD", 0.0);
+    }
+
+    if (SmartDashboard.containsKey("TEST PID (RPM) Speed")==false){
+      SmartDashboard.putNumber("TEST PID (RPM) Speed", 2500);
+      }
+
+
+
+}
+
+public void PIDUpdate(){
+
+  KP = SmartDashboard.getNumber("LeftShooter(PID) KP", 0.0);
+  KI = SmartDashboard.getNumber("LeftShooter(PID) KI", 0.0);
+  KD = SmartDashboard.getNumber("LeftShooter(PID) KD", 0.0);
+  PIDTESTspeed = SmartDashboard.getNumber("TEST PID (RPM) Speed", 0.0);
+
+  if (PIDTESTspeed > 5000){
+
+    PIDTESTspeed = 5000;
+    SmartDashboard.putNumber("TEST PID (RPM) Speed", PIDTESTspeed);
+  }
+  if (PIDTESTspeed < -5000){
+
+    PIDTESTspeed = -5000;
+    SmartDashboard.putNumber("TEST PID (RPM) Speed", PIDTESTspeed);
+  }
+
+
+  SmartDashboard.setPersistent("LeftShooter(PID) KP");
+  SmartDashboard.setPersistent("LeftShooter(PID) KI");
+  SmartDashboard.setPersistent("LeftShooter(PID) KD");
+  SmartDashboard.setPersistent("TEST PID (RPM) Speed");
+}
   @Override
   public void periodic() {
 

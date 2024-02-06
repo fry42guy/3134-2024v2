@@ -23,37 +23,33 @@ private double KI;
 private double KD;
 
 
-  public PIDShooterCommand(ShooterSubsystem m_ShooterSubsystem, double TargetRPM) {
+  public PIDShooterCommand(ShooterSubsystem m_ShooterSubsystem) {
     this.m_ShooterSubsystem = m_ShooterSubsystem;
     m_LeftShooterPIDController = new PIDController(.00004, 0., 0.0);
    // m_ShooterPIDController.enableContinuousInput(-1, 1);
     m_LeftShooterPIDController.setTolerance(0.0035);
-    this.LeftsetPoint = TargetRPM;
+    
    
     addRequirements(m_ShooterSubsystem);
 
     
 
     // Use addRequirements() here to declare subsystem dependencies.
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-SmartDashboard.setDefaultNumber("LeftShooter(PID) KP", 0.00004);
-SmartDashboard.setDefaultNumber("LeftShooter(PID) KI", 0.0);
-SmartDashboard.setDefaultNumber("LeftShooter(PID) KD", 0.0);
-SmartDashboard.setPersistent("LeftShooter(PID) KP");
-SmartDashboard.setPersistent("LeftShooter(PID) KI");
-SmartDashboard.setPersistent("LeftShooter(PID) KD");
-    SmartDashboard.getNumber("LeftShooter(PID) KP", KP);
-    SmartDashboard.getNumber("LeftShooter(PID) KI", KI);
-    SmartDashboard.getNumber("LeftShooter(PID) KD", KD);
-    m_LeftShooterPIDController.setP(KP);
-    m_LeftShooterPIDController.setI(KI);
-    m_LeftShooterPIDController.setD(KD);
+    m_ShooterSubsystem.PIDSetup();
 
+    m_ShooterSubsystem.PIDUpdate();
+
+    m_LeftShooterPIDController.setP(m_ShooterSubsystem.KP);
+    m_LeftShooterPIDController.setI(m_ShooterSubsystem.KI);
+    m_LeftShooterPIDController.setD(m_ShooterSubsystem.KD);
+    //System.out.println("PID init");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -61,10 +57,14 @@ SmartDashboard.setPersistent("LeftShooter(PID) KD");
   public void execute() 
   {
     double feedforward = 0.00;
-    double speed = m_LeftShooterPIDController.calculate(m_ShooterSubsystem.GetLeftShooterRPM(), LeftsetPoint);
+    double speed = m_LeftShooterPIDController.calculate(m_ShooterSubsystem.GetLeftShooterRPM(), m_ShooterSubsystem.PIDTESTspeed);
     speed = (speed > 0) ? speed + feedforward : speed - feedforward;
     m_ShooterSubsystem.setspeed(speed);
     SmartDashboard.putNumber("LeftShooter output: ", speed);
+    //System.out.println(m_ShooterSubsystem.GetLeftShooterRPM());
+    //System.out.println(LeftsetPoint);
+    //System.out.println(speed);
+   //System.out.println(KP);
   }
 
   // Called once the command ends or is interrupted.

@@ -99,7 +99,7 @@ m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, .05).
     m_driverController.rightBumper().whileTrue(new IntakeFWD(m_IntakeSubsystem));
     m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, .05).whileTrue(new IntakeREV(m_IntakeSubsystem));
 
-m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem, 2500));
+m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem));
 
 
 
