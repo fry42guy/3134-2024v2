@@ -59,7 +59,7 @@ public class RobotContainer {
           // () -> -modifyAxis(m_Drive_Controller.getLeftX()*.8), //* DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
           // () -> -modifyAxis(m_Drive_Controller.getRightX()*.7),// * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
  
-          () -> m_driverController.getLeftY()*Math.abs(m_driverController.getLeftY())*.9, 
+          () -> m_driverController.getLeftY()*Math.abs(m_driverController.getLeftY())*-.9, 
           () -> m_driverController.getLeftX()*Math.abs(m_driverController.getLeftX())*-.9, 
           () -> m_driverController.getRightX()*Math.abs(m_driverController.getRightX())*-1, 
           () -> false //() -> robotCentric.getAsBoolean() //always field centric
