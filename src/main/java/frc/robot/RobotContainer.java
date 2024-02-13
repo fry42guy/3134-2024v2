@@ -11,12 +11,14 @@ import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ArmPivot.ArmDown;
 import frc.robot.commands.ArmPivot.ArmUP;
 import frc.robot.commands.ArmPivot.PIDPivotCommand;
+import frc.robot.commands.Climber.ClimberFWD;
+import frc.robot.commands.Climber.ClimberREV;
 import frc.robot.commands.Intake.IntakeFWD;
 import frc.robot.commands.Intake.IntakeREV;
 import frc.robot.commands.Shooter.PIDShooterCommand;
 import frc.robot.commands.Shooter.ShootSpeedSame;
 import frc.robot.subsystems.ArmSubsystem;
-
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -47,6 +49,8 @@ public class RobotContainer {
   private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
     
   public static Swerve s_Swerve = new Swerve();
+
+  public static ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
 
 
@@ -101,6 +105,10 @@ m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, .05).
 
 m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem));
 
+
+m_driverController.povUp().whileTrue(new ClimberFWD(m_ClimberSubsystem));
+
+m_driverController.povDown().whileTrue(new ClimberREV(m_ClimberSubsystem));
 
 
 //         // No requirements because we don't need to interrupt anything
