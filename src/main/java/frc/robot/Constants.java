@@ -26,6 +26,15 @@ public final class Constants {
 
   public static final double stickDeadband = 0.05;
 
+
+  public static class Climber{
+
+    public static final int ClimberID = 50;
+    public static final Double UpSpeed = .5;
+    public static final Double DownSpeed = -.5;
+  }
+
+
 public static class Arm{
 
   public static final int LeftPivotID = 49;
