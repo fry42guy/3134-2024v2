@@ -30,8 +30,8 @@ public final class Constants {
   public static class Climber{
 
     public static final int ClimberID = 50;
-    public static final Double UpSpeed = .5;
-    public static final Double DownSpeed = -.5;
+    public static final Double UpSpeed = .99;
+    public static final Double DownSpeed = -.99;
   }
 
 

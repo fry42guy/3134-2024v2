@@ -103,12 +103,12 @@ m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, .05).
     m_driverController.rightBumper().whileTrue(new IntakeFWD(m_IntakeSubsystem));
     m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, .05).whileTrue(new IntakeREV(m_IntakeSubsystem));
 
-m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem));
+///m_driverController.a().whileTrue(new PIDShooterCommand(m_ShooterSubsystem));
 
 
-m_driverController.povUp().whileTrue(new ClimberFWD(m_ClimberSubsystem));
+m_driverController.povDown().whileTrue(new ClimberFWD(m_ClimberSubsystem));
 
-m_driverController.povDown().whileTrue(new ClimberREV(m_ClimberSubsystem));
+m_driverController.povUp().whileTrue(new ClimberREV(m_ClimberSubsystem));
 
 
 //         // No requirements because we don't need to interrupt anything
